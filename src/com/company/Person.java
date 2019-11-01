@@ -1,16 +1,24 @@
 package com.company;
 
+import java.util.Scanner;
+
 public abstract class Person {
     protected float hp, damage;
     protected int lvl, vAtt, chanceMiss = 1;
     String className;
 
-    Person(String className, float hp, float damage, int lvl, int vAtt){
+    Person(String className){
         this.className = className;
-        this.hp = hp;
-        this.damage = damage;
-        this.lvl = lvl;
-        this.vAtt = vAtt;
+        System.out.println("Создание персонажа " + className + ":");
+        System.out.println("\tВведите количество здоровья:");
+        Scanner in = new Scanner(System.in);
+        this.hp = in.nextFloat();
+        System.out.println("\tВведите количество наносимого урона:");
+        this.damage = in.nextFloat();
+        System.out.println("\tВведите уровень персонажа:");
+        this.lvl = in.nextInt();
+        System.out.println("\tВведите скорость атаки:");
+        this.vAtt = in.nextInt();
     }
 
     public String getClassName() {

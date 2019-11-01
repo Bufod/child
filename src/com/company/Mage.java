@@ -2,8 +2,8 @@ package com.company;
 
 public class Mage extends Person {
 
-    Mage(String className, float hp, float damage, int lvl, int vAtt) {
-        super(className, hp, damage, lvl, vAtt);
+    Mage(String className) {
+        super(className);
     }
 
     @Override

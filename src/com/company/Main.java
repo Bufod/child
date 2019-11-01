@@ -15,11 +15,11 @@ public class Main {
             System.out.println("Выберите персонажа маг/лучник или напишите \"Начать играть\"");
             ans = in.nextLine();
             if (ans.equals("маг")) {
-                team[count] = new Mage(ans, 100, 50, 20, 10);
+                team[count] = new Mage(ans);
                 count++;
             }
             else if (ans.equals("лучник")){
-                team[count]  = new Arch(ans,100, 25, 10, 10);
+                team[count]  = new Arch(ans);
                 count++;
             }
             else if (ans.equals("Начать играть")){

@@ -1,9 +1,8 @@
 package com.company;
 
 public class Arch extends Person {
-
-    Arch(String className, float hp, float damage, int lvl, int vAtt) {
-        super(className, hp, damage, lvl, vAtt);
+    Arch(String className) {
+        super(className);
     }
 
     @Override
