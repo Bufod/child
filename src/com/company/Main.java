@@ -9,7 +9,7 @@ public class Main {
         Scanner in = new Scanner(System.in);
         String ans;
         Person[] team = new Person[3];
-        Boss dragon = new Boss(10000, 30, 1, 2);
+        Boss cur_boss = new Boss("Дракон", 10000, 30, 1, 2);
         int count = 0;
         while (count != 3){
             System.out.println("Выберите персонажа маг/лучник или напишите \"Начать играть\"");
@@ -29,21 +29,23 @@ public class Main {
                 System.out.println("Введенного класса не существует");
         }
 
-        outer:
+        int score = 0;
         while (true){
-            for(int i = 0; i < team.length && team[i] != null; i++){
-                Person cur = team[i];
-                cur.skill(dragon);
-                if (dragon.getHp() <= 0){
-                    System.out.println("Победил " + cur.getClassName());
-                    break outer;
-                }
-                dragon.skill(cur);
-                if (cur.getHp() <= 0){
-                    System.out.println("Победил дракон");
-                    break outer;
-                }
+            Arena arena = new Arena(cur_boss, team);
+            arena.startFight();
+            if (arena.getWinner() == 0)
+                score+=100;
+            System.out.println("Текущий счет: " + score);
+            System.out.println("Продолжить Да/Нет?");
+            ans = in.nextLine();
+            if (ans.equals("Нет"))
+                break;
+            else if (arena.getWinner() == 0){
+                // Восстановление босса
+                cur_boss.setLvl(cur_boss.getLvl()+1);
             }
         }
+
+
     }
 }
