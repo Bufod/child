@@ -8,33 +8,41 @@ public class Main {
         System.out.println("Игра Арена");
         Scanner in = new Scanner(System.in);
         String ans;
-        Person person;
+        Person[] team = new Person[3];
         Boss dragon = new Boss(10000, 30, 1, 2);
-        while (true){
-            System.out.println("Выберите персонажа маг/лучник");
-            ans = in.next();
+        int count = 0;
+        while (count != 3){
+            System.out.println("Выберите персонажа маг/лучник или напишите \"Начать играть\"");
+            ans = in.nextLine();
             if (ans.equals("маг")) {
-                person = new Mage(ans, 100, 50, 20, 10);
-                break;
+                team[count] = new Mage(ans, 100, 50, 20, 10);
+                count++;
             }
             else if (ans.equals("лучник")){
-                person = new Arch(ans,100, 25, 10, 10);
+                team[count]  = new Arch(ans,100, 25, 10, 10);
+                count++;
+            }
+            else if (ans.equals("Начать играть")){
                 break;
             }
             else
                 System.out.println("Введенного класса не существует");
         }
 
+        outer:
         while (true){
-            person.skill(dragon);
-            if (dragon.getHp() <= 0){
-                System.out.println("Победил " + person.getClassName());
-                break;
-            }
-            dragon.skill(person);
-            if (person.getHp() <= 0){
-                System.out.println("Победил дракон");
-                break;
+            for(int i = 0; i < team.length && team[i] != null; i++){
+                Person cur = team[i];
+                cur.skill(dragon);
+                if (dragon.getHp() <= 0){
+                    System.out.println("Победил " + cur.getClassName());
+                    break outer;
+                }
+                dragon.skill(cur);
+                if (cur.getHp() <= 0){
+                    System.out.println("Победил дракон");
+                    break outer;
+                }
             }
         }
     }
