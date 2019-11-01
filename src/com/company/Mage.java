@@ -1,55 +1,43 @@
 package com.company;
 
-import java.util.Random;
-
 public class Mage extends Person {
-    Mage(float hp, float damage, int lvl, int vAtt) {
-        super(hp, damage, lvl, vAtt);
+
+    Mage(String className, float hp, float damage, int lvl, int vAtt) {
+        super(className, hp, damage, lvl, vAtt);
     }
 
     @Override
     void skill(Boss boss) {
-        Random rnd1 = new Random(System.currentTimeMillis());
-        int rnd = 1 + rnd1.nextInt(3);
-        System.out.println("Удар мага");
-        switch (rnd) {
+        System.out.println("Ход мага");
+        float res_dmg = 0;
+        int rnd = 1 + (int)(Math.random()*3);
+        switch (rnd){
             case 1:
-                boss.hp -= (fireBall() + lvl) * vAtt;
-                System.out.println("\tумение fire ball");
+                System.out.println("\tОгненный шар");
+                res_dmg = (fireBall()*lvl)+vAtt;
                 break;
             case 2:
-                boss.hp -= (frozenBall() + lvl) * vAtt;
-                System.out.println("\tумение frozen ball");
+                System.out.println("\tЛедяной шар");
+                res_dmg = (frozenBall()*lvl)+vAtt;
                 break;
             case 3:
-                boss.hp -= (ult() + lvl) * vAtt;
-                System.out.println("\tсупер умение");
+                System.out.println("\tСупер способность");
+                res_dmg = (ult()*lvl)+vAtt;
                 break;
+
         }
-        System.out.println("\tОсталось здоровья босса: " + boss.getHp());
-
+        boss.checkDmg(res_dmg);
     }
 
-    float fireBall() {
-        return damage * 6;
+    float fireBall(){
+        return damage*2;
     }
 
-    float frozenBall() {
-        return damage * 2;
+    float frozenBall(){
+        return damage*6;
     }
-
-    float ult() {
-        return damage * 10;
-    }
-
-    boolean guard() {
-        Random rnd1 = new Random(System.currentTimeMillis());
-        int rnd = 1 + rnd1.nextInt(100);
-        if (rnd > 50) {
-            System.out.println("Маг уклонился от атаки");
-            return true;
-        } else
-            return false;
+    float ult(){
+        return damage*10;
     }
 
 }
